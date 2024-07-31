@@ -137,6 +137,21 @@ body {
   font-family: "Work Sans";
   font-size: 14px;
 }
+.logged {
+  position: absolute;
+  background-color: rgb(16, 238, 16);
+  color: white;
+  height: 40px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  left: 35%;
+  opacity: 0;
+  animation: loggedAnim 2s ease-in-out;
+  visibility: hidden;
+}
 header {
   display: flex;
   justify-content: space-between;
@@ -320,4 +335,14 @@ footer nav ul {
   display: flex;
   justify-content: flex-end;
   margin: 2em;
+}
+
+@keyframes loggedAnim {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
