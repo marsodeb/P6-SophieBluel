@@ -1,4 +1,3 @@
-
 export function genererWorks(works) {
     for (let i = 0; i < works.length; i++) {
         const projets = works[i];
