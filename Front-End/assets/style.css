@@ -323,12 +323,13 @@ footer nav ul {
 }
 
 /* Admin mode */
-.logged {
-  position: absolute;
+.popup {
+  position: fixed;
   background-color: rgb(16, 238, 16);
   color: white;
+  padding: 0 20px;
   height: 40px;
-  width: 200px;
+  min-width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -336,8 +337,16 @@ footer nav ul {
   left: 20%;
   top: 10px;
   opacity: 0;
-  animation: loggedAnim 2s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
   visibility: hidden;
+  z-index: 3;
+}
+.popup.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.popup.error {
+  background-color: rgb(255, 0, 0);
 }
 .edition-banner {
   background-color: black;
