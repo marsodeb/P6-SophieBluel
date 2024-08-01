@@ -396,7 +396,7 @@ footer nav ul {
   top: 50%;
   left: 50%;
   width: 630px;
-  height: 687px;
+  min-height: 687px;
   border-radius: 10px;
   transform: translate(-50%, -50%);
   gap: 40px;
@@ -416,13 +416,26 @@ footer nav ul {
   font-size: 20px;
   cursor: pointer;
 }
+.modal-back {
+  position: absolute;
+  left: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
 
-.modal-content {
+.modal-content.gallery-view {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   padding-bottom: 67px;
   border-bottom: 1px solid rgba(179, 179, 179, 1);
+}
+
+.modal-content.upload-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 .delet {
   position: absolute;
@@ -437,18 +450,52 @@ footer nav ul {
   align-items: center;
   justify-content: center;
   border-radius: 2px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.delet:hover {
+  transform: scale(1.1);
 }
 .modal-content div {
   position: relative;
 }
 .modal-content img {
-  height: 102px;
+  max-width: 67px;
 }
 
 .modal h2 {
   font-size: 26px;
   font-family: "Work Sans", sans-serif;
   color: black;
+}
+
+#uploadForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#imageFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+#labelPhoto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+  background-color: #e8f1f6;
+  border-radius: 3px;
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+  padding-top: 25px;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .modal button {
