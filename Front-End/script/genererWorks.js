@@ -23,6 +23,29 @@ export function genererWorks(works) {
     }
 }
 
+export function filterCreate(categorie, works) {
+    const filter = document.querySelector(".filter");
+    if (!filter) {
+        console.error("L'élément '.filter' est introuvable.");
+        return;
+    }
+
+    const buttons = [
+        { text: "Tous", action: () => genererWorks(works) },
+        ...categorie.map(cat => ({
+            text: cat.name,
+            action: () => genererWorks(works.filter(work => work.category.name === cat.name))
+        }))
+    ];
+
+    buttons.forEach(({ text, action }) => {
+        const button = document.createElement("button");
+        button.innerText = text;
+        filter.appendChild(button);
+        button.addEventListener("click", action);
+    });
+}
+
 export function genererWorksModal(works) {
     const imageContent = document.querySelector(".modal-content");
     if (!imageContent) {

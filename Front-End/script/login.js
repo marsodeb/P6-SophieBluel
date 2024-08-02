@@ -1,46 +1,55 @@
-import { showPopup } from "./showPopup.js"; // Assurez-vous que showPopup est bien exportée depuis script.js
+import { showPopup } from "./showPopup.js";
 
-// Vérifiez si le formulaire existe avant d'ajouter un écouteur d'événement
-const formulaireLogin = document.querySelector(".formulaire-login");
-if (formulaireLogin) {
-    formulaireLogin.addEventListener("submit", function (event) {
+document.addEventListener("DOMContentLoaded", () => {
+    const formulaireLogin = document.querySelector(".formulaire-login");
+    if (!formulaireLogin) {
+        console.error("Formulaire de connexion non trouvé.");
+        return;
+    }
+
+    formulaireLogin.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        // Création de l’objet du nouvel avis.
-        const login = {
-            email: event.target.querySelector("[name=email]").value,
-            password: event.target.querySelector("[name=password]").value,
-        };
+        // Récupération des valeurs des champs email et password
+        const emailInput = event.target.querySelector("[name=email]");
+        const passwordInput = event.target.querySelector("[name=password]");
 
-        // Création de la charge utile au format JSON
-        const chargeUtile = JSON.stringify(login);
+        if (!emailInput || !passwordInput) {
+            showPopup("Erreur dans le formulaire de connexion", true);
+            console.error("Champs de formulaire non trouvés.");
+            return;
+        }
 
-        // Appel de la fonction fetch avec toutes les informations nécessaires
-        fetch("http://localhost:5678/api/users/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: chargeUtile
-        }).then((response) => {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+            showPopup("Veuillez remplir tous les champs", true);
+            return;
+        }
+
+        const login = { email, password };
+
+        try {
+            const chargeUtile = JSON.stringify(login);
+
+            const response = await fetch("http://localhost:5678/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: chargeUtile
+            });
+
             if (response.status !== 200) {
-                // Affiche la popup d'erreur
-                showPopup("Erreur dans l’identifiant ou le mot de passe", true);
-            } else {
-                // Récupération du token et redirection
-                response.json().then((data) => {
-                    sessionStorage.setItem("token", data.token); // STORES TOKEN
-                    window.location.replace("index.html");
-                }).catch((error) => {
-                    // Gestion des erreurs lors de la conversion JSON
-                    showPopup("Erreur lors de la récupération des données", true);
-                    console.error("Erreur JSON : ", error);
-                });
+                throw new Error("Erreur dans l’identifiant ou le mot de passe");
             }
-        }).catch((error) => {
-            // Affiche la popup d'erreur pour les problèmes de réseau ou serveur
-            showPopup("Erreur réseau ou serveur", true);
+
+            const data = await response.json();
+            sessionStorage.setItem("token", data.token); // Stockage du token
+            window.location.replace("index.html");
+        } catch (error) {
+            const errorMessage = error.message || "Erreur réseau ou serveur";
+            showPopup(errorMessage, true);
             console.error("Erreur de connexion : ", error);
-        });
+        }
     });
-} else {
-    console.error("Formulaire de connexion non trouvé.");
-}
+});

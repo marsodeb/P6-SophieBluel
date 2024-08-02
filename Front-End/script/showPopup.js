@@ -1,6 +1,9 @@
 export function showPopup(message, isError = false) {
     const popup = document.querySelector(".popup");
-    if (!popup) return; // Vérifiez si l'élément existe
+    if (!popup) {
+        console.error("L'élément '.popup' est introuvable.");
+        return;
+    }
     popup.innerText = message;
     popup.classList.add("visible");
     if (isError) {
@@ -10,5 +13,5 @@ export function showPopup(message, isError = false) {
     }
     setTimeout(() => {
         popup.classList.remove("visible");
-    }, 3000); // Cache la popup après 3 secondes
+    }, 3000);
 }

@@ -108,10 +108,6 @@ section {
 body {
   line-height: 1;
 }
-a {
-  text-decoration: none;
-  color: black;
-}
 ol,
 ul {
   list-style: none;
@@ -131,6 +127,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+a {
+  text-decoration: none;
+  color: black;
+}
 /** end reset css**/
 body {
   max-width: 1140px;
@@ -144,6 +144,7 @@ header {
   justify-content: space-between;
   margin: 50px 0;
 }
+
 section {
   margin: 50px 0;
 }
@@ -207,7 +208,10 @@ a:hover {
 #introduction p {
   margin-bottom: 0.5em;
 }
-
+#portfolio h2 {
+  text-align: center;
+}
+/* START CSS FILTER */
 .filter-container {
   display: flex;
   justify-content: center;
@@ -215,16 +219,14 @@ a:hover {
 
 .filter button {
   font-family: "Syne";
-  font-weight: 700;
   font-size: 16px;
   color: #1d6154;
   background-color: transparent;
   border: 1px solid #1d6154;
-  margin: 2em 10px;
+  margin: 2em 1em;
   padding: 0px 14px;
   min-width: 100px;
   height: 37px;
-  text-align: center;
   border-radius: 60px;
   cursor: pointer;
   transition: 0.2s;
@@ -234,7 +236,7 @@ a:hover {
   color: white;
   background-color: #1d6154;
 }
-
+/* END CSS FILTER */
 .gallery {
   width: 100%;
   display: grid;
@@ -288,14 +290,18 @@ input[type="submit"] {
   border-radius: 60px;
 }
 
-#login {
-  width: 50%;
-  margin: auto;
+footer nav ul {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
 }
 
-#login > * {
-  text-align: center;
+/* Connection page */
+#login {
+  width: 40%;
+  margin: 100px auto;
 }
+
 #login h2 {
   margin-bottom: 20px;
 }
@@ -316,13 +322,20 @@ input[type="submit"] {
   margin: 2em 0 1em 0;
 }
 
-footer nav ul {
-  display: flex;
-  justify-content: flex-end;
-  margin: 2em;
+#login a {
+  text-align: center;
+  text-decoration: underline;
 }
 
-/* Admin mode */
+.footer-login {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+/* End of connection page */
+
+/* Admin style */
+
 .popup {
   position: fixed;
   background-color: rgb(16, 238, 16);
@@ -341,16 +354,18 @@ footer nav ul {
   visibility: hidden;
   z-index: 3;
 }
+
 .popup.visible {
   opacity: 1;
   visibility: visible;
 }
+
 .popup.error {
   background-color: rgb(255, 0, 0);
 }
+
 .edition-banner {
   background-color: black;
-  display: flex;
   align-items: center;
   justify-content: center;
   color: white;
@@ -359,6 +374,7 @@ footer nav ul {
   margin: 0 -500px;
   display: none;
 }
+
 .portfolio-title {
   display: flex;
   align-items: center;
@@ -372,6 +388,9 @@ footer nav ul {
   gap: 10px;
   cursor: pointer;
 }
+
+/* Modal Admin */
+
 .modal {
   display: none;
   align-items: center;
@@ -384,7 +403,7 @@ footer nav ul {
   background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
-.modal-container {
+.modal-first {
   position: absolute;
   background-color: white;
   width: 30%;
@@ -402,6 +421,24 @@ footer nav ul {
   gap: 40px;
   z-index: 2;
 }
+.modal-second {
+  position: absolute;
+  background-color: white;
+  width: 30%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  width: 630px;
+  min-height: 687px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  gap: 40px;
+  z-index: 3;
+}
 
 .modal-title {
   display: flex;
@@ -413,30 +450,37 @@ footer nav ul {
 .modal-exit {
   position: absolute;
   right: 20px;
+  top: 20px;
   font-size: 20px;
   cursor: pointer;
+  z-index: 5;
 }
 .modal-back {
   position: absolute;
   left: 20px;
+  top: 20px;
   font-size: 20px;
   cursor: pointer;
+  z-index: 5;
 }
 
-.modal-content.gallery-view {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  padding-bottom: 67px;
-  border-bottom: 1px solid rgba(179, 179, 179, 1);
+.modal button {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  border: none;
+  background-color: #1d6154;
+  margin: 2em 10px;
+  padding: 0px 14px;
+  min-width: 100px;
+  height: 37px;
+  text-align: center;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.modal-content.upload-view {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-}
 .delet {
   position: absolute;
   right: 5px;
@@ -462,16 +506,29 @@ footer nav ul {
 .modal-content img {
   max-width: 67px;
 }
+.modal-content.gallery-view {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding-bottom: 67px;
+  border-bottom: 1px solid rgba(179, 179, 179, 1);
+}
 
-.modal h2 {
-  font-size: 26px;
-  font-family: "Work Sans", sans-serif;
-  color: black;
+.modal-content.upload-view {
+  width: 400px;
+  padding-bottom: 67px;
+  border-bottom: 1px solid rgba(179, 179, 179, 1);
 }
 
 #uploadForm {
   display: flex;
   flex-direction: column;
+}
+
+#uploadForm .uploadInput {
+  height: 51px;
+  border: none;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 }
 
 #imageFile {
@@ -497,30 +554,13 @@ footer nav ul {
   position: relative;
   box-sizing: border-box;
 }
-
-.modal button {
-  font-family: "Syne";
-  font-weight: 700;
-  font-size: 16px;
-  color: white;
+#AddPhoto {
+  color: #306685;
+  background-color: #cbd6dc;
   border: none;
-  background-color: #1d6154;
-  margin: 2em 10px;
-  padding: 0px 14px;
-  min-width: 100px;
-  height: 37px;
-  text-align: center;
-  border-radius: 60px;
+  padding: 10px 33px;
+  margin-bottom: 10px;
+  display: inline-block;
   cursor: pointer;
-  transition: 0.2s;
-}
-
-@keyframes loggedAnim {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  border-radius: 25px;
 }
