@@ -14,7 +14,7 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="/script/main.js" defer></script>
+	<script type="module" src="./script/main.js" defer></script>
 </head>
 
 <body>
@@ -50,10 +50,10 @@
 						<img src="./assets/icons/picture.png" id="picture" alt="choisir une image">
 						<label for="imageFile" id="AddPhoto">+ Ajouter photo</label>
 						<input type="file" id="imageFile" name="image" accept="image/*" required style="display: none;">
-						<div id="previewContainer" style="display: none;">
-							<img id="previewImage" src="" alt="Prévisualisation" style="min-width: 150px;">
-						</div>
 						<p id="fileFormatText">jpg, png : 4mo max</p>
+					</div>
+					<div id="previewContainer" style="display: none;">
+						<img id="previewImage" src="" style="min-width: 150px;">
 					</div>
 					<label for="imageTitle">Titre :</label>
 					<input type="text" id="imageTitle" name="title" class="uploadInput" required>
@@ -62,7 +62,7 @@
 				</form>
 			</div>
 			<div class="modal-button">
-				<button id="addPhotoBtn"></button>
+				<button id="uploadBtn" class="btn-not-selected">Valider</button>
 			</div>
 		</div>
 	</aside>
