@@ -138,6 +138,7 @@ body {
   font-family: "Work Sans";
   font-size: 14px;
   overflow-x: hidden;
+  background-color: rgba(255, 254, 248, 1);
 }
 header {
   display: flex;
@@ -417,7 +418,6 @@ footer nav ul {
   width: 630px;
   border-radius: 10px;
   transform: translate(-50%, -50%);
-  gap: 40px;
   z-index: 2;
 }
 .modal-second {
@@ -434,7 +434,6 @@ footer nav ul {
   width: 630px;
   border-radius: 10px;
   transform: translate(-50%, -50%);
-  gap: 40px;
   z-index: 3;
 }
 
@@ -443,7 +442,7 @@ footer nav ul {
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 20px 0;
+  padding: 45px 0;
   width: 100%;
 }
 .modal-exit {
@@ -519,13 +518,14 @@ footer nav ul {
 
 .modal-content.upload-view {
   width: 400px;
-  padding-bottom: 67px;
+  padding-bottom: 35px;
   border-bottom: 1px solid rgba(179, 179, 179, 1);
 }
 
 #uploadForm {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 #uploadForm .uploadInput {
@@ -567,4 +567,18 @@ footer nav ul {
   display: inline-block;
   cursor: pointer;
   border-radius: 25px;
+}
+
+#previewContainer {
+  display: none;
+  justify-content: center;
+  height: 200px;
+  background-color: #e8f1f6;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+#previewContainer img {
+  object-position: center;
+  object-fit: cover;
 }
