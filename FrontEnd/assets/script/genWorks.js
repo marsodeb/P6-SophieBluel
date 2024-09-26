@@ -1,11 +1,9 @@
 import { api, works, categories, repWorks, repCateg } from "./config.js";
 
-export function genWorks() {
-
+export function genWorks(repWorks) {
     const sectionProjets = document.querySelector(".gallery");
-
     for (let i = 0; i < repWorks.length; i++) {
-        const projet = repWorks[i]
+        const projet = repWorks[i];
 
         const projetElement = document.createElement("figure");
         const projetImage = document.createElement("img");

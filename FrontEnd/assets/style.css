@@ -321,3 +321,29 @@ footer nav ul {
 .missingPassword {
   text-decoration: underline;
 }
+
+/* Works Categories */
+.categContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.categ button {
+  font-family: "Syne";
+  font-size: 16px;
+  color: #1d6154;
+  background-color: transparent;
+  border: 1px solid #1d6154;
+  margin: 2em 1em;
+  padding: 0px 14px;
+  min-width: 100px;
+  height: 37px;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.categ button:hover {
+  color: white;
+  background-color: #1d6154;
+}
