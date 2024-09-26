@@ -147,6 +147,11 @@ section {
   margin: 50px 0;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 h1 {
   display: flex;
   flex-direction: column;
@@ -269,6 +274,10 @@ footer nav ul {
 
 /* Login page */
 
+.activePage {
+  font-weight: bolder;
+}
+
 .loginFooter {
   max-width: 1140px;
   width: 100%;
@@ -277,4 +286,38 @@ footer nav ul {
 }
 
 .loginContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginPanel form {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.loginPanel form div {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  gap: 15px;
+}
+
+.loginContainer input {
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.missingPassword {
+  text-decoration: underline;
 }

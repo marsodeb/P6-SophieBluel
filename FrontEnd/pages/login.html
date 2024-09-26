@@ -20,7 +20,7 @@
             <ul>
                 <li>projets</li>
                 <li>contact</li>
-                <a href="login.html">
+                <a href="login.html" class="activePage">
                     <li>login</li>
                 </a>
                 <li><img src="../assets/icons/instagram.png" alt="Instagram"></li>
@@ -32,12 +32,16 @@
             <section class="loginPanel">
                 <h2>Log In</h2>
                 <form action="">
-                    <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" name="password" id="password">
+                    <div class="email">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div class="password">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" id="password">
+                    </div>
                     <input type="submit" value="Se connecter">
-                    <a href="#">Mot de passe oublié</a>
+                    <a href="#" class="missingPassword">Mot de passe oublié</a>
                 </form>
             </section>
         </div>
