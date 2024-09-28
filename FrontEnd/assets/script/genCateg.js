@@ -1,4 +1,4 @@
-import { api, works, categories, repWorks, repCateg } from "./config.js";
+import { repWorks, repCateg } from "./config.js";
 import { genWorks } from "./genWorks.js"
 
 export function genCateg() {

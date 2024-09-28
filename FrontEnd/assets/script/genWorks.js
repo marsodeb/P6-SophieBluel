@@ -1,5 +1,3 @@
-import { api, works, categories, repWorks, repCateg } from "./config.js";
-
 export function genWorks(repWorks) {
 
     const sectionProjets = document.querySelector(".gallery");
