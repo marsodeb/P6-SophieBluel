@@ -10,12 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
         rel="stylesheet">
     <meta name="description" content="">
+    <script type="module" src="../assets/script/adminLogin.js" defer></script>
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 
 <body>
     <header>
-        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+        <a href="../index.html">
+            <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+        </a>
         <nav>
             <ul>
                 <li>projets</li>
@@ -31,7 +34,8 @@
         <div class="loginContainer">
             <section class="loginPanel">
                 <h2>Log In</h2>
-                <form action="">
+                <span class="loginStatus"></span>
+                <form action="" method="post" class="formulaireLogin">
                     <div class="email">
                         <label for="email">E-mail</label>
                         <input type="email" name="email" id="email">

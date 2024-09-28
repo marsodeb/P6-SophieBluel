@@ -8,4 +8,5 @@ const repWorks = await fetchWorks.json();
 const fetchCateg = await fetch(categories);
 const repCateg = await fetchCateg.json();
 
+
 export { api, works, categories, repWorks, repCateg };
