@@ -137,6 +137,7 @@ body {
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+  overflow-x: hidden;
 }
 header {
   display: flex;
@@ -209,9 +210,15 @@ li:hover {
 #introduction p {
   margin-bottom: 0.5em;
 }
+#portfolio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 #portfolio h2 {
   text-align: center;
-  margin-bottom: 1em;
 }
 .gallery {
   width: 100%;
@@ -219,6 +226,14 @@ li:hover {
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 40%;
 }
 
 .gallery img {
@@ -346,4 +361,27 @@ footer nav ul {
 .categ button:hover {
   color: white;
   background-color: #1d6154;
+}
+
+/* Admin style */
+
+.admin {
+  max-height: 100%;
+  visibility: visible;
+}
+
+.bannerAdmin {
+  color: white;
+  background-color: black;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  margin: 0 -100em;
+}
+
+.editAdmin {
+  position: absolute;
+  right: 0;
 }
