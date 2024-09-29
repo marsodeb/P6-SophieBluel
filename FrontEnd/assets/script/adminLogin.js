@@ -6,15 +6,9 @@ const loginStatus = document.querySelector(".loginStatus");
 
 formulaireLogin.addEventListener("submit", async function (event) {
     event.preventDefault();
-    // Récupération des valeurs des champs email et password
+
     const emailInput = event.target.querySelector("[name=email]");
     const passwordInput = event.target.querySelector("[name=password]");
-
-    if (!emailInput || !passwordInput) {
-        console.error("Champs de formulaire non trouvés.");
-        return;
-    }
-
     const email = emailInput.value;
     const password = passwordInput.value;
 

@@ -435,6 +435,14 @@ footer nav ul {
   cursor: pointer;
 }
 
+/* First modal */
+
+.firstModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .modalGallery {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -465,10 +473,32 @@ footer nav ul {
   cursor: pointer;
 }
 
+.modalButton {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(179, 179, 179, 1);
+  width: 100%;
+  margin-top: 60px;
+}
+
+.modalButton button {
+  font-family: "Syne";
+  font-size: 14px;
+  color: white;
+  background-color: #1d6154;
+  border: 1px solid #1d6154;
+  margin: 2em 1em;
+  padding: 0px 14px;
+  min-width: 250px;
+  height: 37px;
+  border-radius: 60px;
+  cursor: pointer;
+}
+
 /* Popup */
 
 .popupInfo {
-  position: absolute;
+  position: fixed;
   width: 250px;
   height: 50px;
   display: flex;
@@ -484,6 +514,7 @@ footer nav ul {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   text-align: center;
+  z-index: 1000;
 }
 
 .error {

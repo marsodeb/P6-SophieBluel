@@ -1,5 +1,6 @@
 import { repWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
+import { showPopup } from "./popUp.js";
 
 const modalAdmin = document.querySelector(".modalAdmin");
 const modalGallery = document.querySelector(".modalGallery");
@@ -49,11 +50,10 @@ export function deletWorks(event) {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log("Travail supprimé avec succès.");
+                    showPopup("Travail supprimé avec succès.", false);
                     return fetch("http://localhost:5678/api/works");
                 } else {
                     console.log("Erreur : " + response.status);
-                    throw new Error("Erreur de suppression");
                 }
             })
             .then(response => response.json())
@@ -62,7 +62,7 @@ export function deletWorks(event) {
                 genWorks(data);
             })
             .catch(error => {
-                console.log("Erreur de connexion : ", error);
+                showPopup("Erreur réseau", true);
             });
     }
 }

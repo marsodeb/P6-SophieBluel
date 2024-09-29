@@ -27,8 +27,6 @@ function checkAdmin() {
         adminModeVisible.style.maxHeight = "100%";
         adminEditVisible.style.visibility = "visible";
         showPopup("Vous êtes connectés.", false);
-    } else {
-        // Mettre erreur log
     }
 }
 checkAdmin();
