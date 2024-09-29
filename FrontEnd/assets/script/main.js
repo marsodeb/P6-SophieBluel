@@ -4,6 +4,7 @@ import { filterWorks, genCateg } from "./genCateg.js";
 import { openModal, closeModal, deletWorks } from "./adminModal.js";
 import { showPopup } from "./popUp.js";
 
+
 genWorks(repWorks);
 genCateg();
 
@@ -11,6 +12,7 @@ const categButton = document.querySelectorAll(".categ button");
 const adminModeVisible = document.querySelector(".adminMode");
 const adminEditVisible = document.querySelector(".adminEdit");
 const closeModalBtn = document.querySelector(".modalClose");
+const modalAdmin = document.querySelector(".modalAdmin"); // overlay modal pour fermeture
 
 for (let i = 0; i < categButton.length; i++) {
     categButton[i].addEventListener("click", filterWorks);
@@ -33,12 +35,18 @@ checkAdmin();
 
 adminEditVisible.addEventListener("click", () => {
     if (sessionStorage.getItem("token") != null) {
-        openModal()
+        openModal();
     }
 });
 
 closeModalBtn.addEventListener("click", () => {
-    closeModal()
+    closeModal();
+})
+
+modalAdmin.addEventListener("click", (event) => {
+    if (event.target == modalAdmin) {
+        closeModal();
+    }
 })
 
 document.addEventListener('click', function (event) {
