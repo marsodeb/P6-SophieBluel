@@ -339,7 +339,7 @@ footer nav ul {
   justify-content: center;
 }
 
-.categ button {
+.buttonCateg {
   font-family: "Syne";
   font-size: 16px;
   color: #1d6154;
@@ -352,6 +352,11 @@ footer nav ul {
   border-radius: 60px;
   cursor: pointer;
   transition: 0.2s;
+}
+
+.selectedCateg {
+  color: white;
+  background-color: #1d6154;
 }
 
 .categ button:hover {

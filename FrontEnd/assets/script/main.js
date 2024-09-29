@@ -3,7 +3,6 @@ import { genWorks } from "./genWorks.js";
 import { filterWorks, genCateg } from "./genCateg.js";
 import { openModal, closeModal, deletWorks } from "./adminModal.js";
 
-
 genWorks(repWorks);
 genCateg();
 
@@ -13,8 +12,9 @@ const adminEditVisible = document.querySelector(".adminEdit");
 const closeModalBtn = document.querySelector(".modalClose");
 
 for (let i = 0; i < categButton.length; i++) {
-    categButton[i].addEventListener("click", filterWorks)
+    categButton[i].addEventListener("click", filterWorks);
 }
+
 
 
 function checkAdmin() {
