@@ -1,7 +1,7 @@
 import { repWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { filterWorks, genCateg } from "./genCateg.js";
-import { openModal, closeModal, deletWorks } from "./adminModal.js";
+import { openModal, closeModal, deletWorks, openSecondModal } from "./adminModal.js";
 import { showPopup } from "./popUp.js";
 
 
@@ -11,13 +11,14 @@ genCateg();
 const categButton = document.querySelectorAll(".categ button");
 const adminModeVisible = document.querySelector(".adminMode");
 const adminEditVisible = document.querySelector(".adminEdit");
-const closeModalBtn = document.querySelector(".modalClose");
-const modalAdmin = document.querySelector(".modalAdmin"); // overlay modal pour fermeture
+const closeModalBtn = document.querySelectorAll(".modalClose");
+const modalAdminFirst = document.querySelector(".Mfirst");
+const modalAdminSecond = document.querySelector(".Msecond")
+const nextModal = document.querySelector(".nextModal");
 
 for (let i = 0; i < categButton.length; i++) {
     categButton[i].addEventListener("click", filterWorks);
 }
-
 
 function checkAdmin() {
 
@@ -39,12 +40,27 @@ adminEditVisible.addEventListener("click", () => {
     }
 });
 
-closeModalBtn.addEventListener("click", () => {
-    closeModal();
+nextModal.addEventListener("click", () => {
+    if (sessionStorage.getItem("token") != null) {
+        openSecondModal();
+    }
 })
 
-modalAdmin.addEventListener("click", (event) => {
-    if (event.target == modalAdmin) {
+closeModalBtn.forEach(button => {
+    button.addEventListener("click", () => {
+        closeModal();
+    });
+});
+
+
+modalAdminFirst.addEventListener("click", (event) => {
+    if (event.target == modalAdminFirst) {
+        closeModal();
+    }
+})
+
+modalAdminSecond.addEventListener("click", (event) => {
+    if (event.target == modalAdminSecond) {
         closeModal();
     }
 })

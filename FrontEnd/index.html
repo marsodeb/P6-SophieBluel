@@ -24,7 +24,7 @@
 		<i class="fa-solid fa-pen-to-square"></i>
 		<span>Mode édition</span>
 	</div>
-	<div class="modalAdmin">
+	<div class="modalAdmin Mfirst">
 		<div class="modalContainer">
 			<div class="modalClose">
 				<i class="fa-solid fa-xmark"></i>
@@ -36,7 +36,45 @@
 				<div class="modalGallery">
 				</div>
 				<div class="modalButton">
-					<button>Ajouter une photo</button>
+					<button class="nextModal">Ajouter une photo</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modalAdmin Msecond">
+		<div class="modalContainer">
+			<div class="modalClose">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+			<div class="modalBack">
+				<i class="fa-solid fa-arrow-left"></i>
+			</div>
+			<div class="secondModal">
+				<div class="modalTitle">
+					<h3>Ajout photo</h3>
+				</div>
+				<div class="modalForm">
+					<form action="" method="post" class="uploadForm">
+						<div class="uploadFile">
+							<img src="./assets/images/upload.png" alt="logo Upload">
+							<label for="uploadFile">+ Ajouter photo</label>
+							<span class="infoUpload">jpg, png : 4mo max</span>
+							<input type="file" name="uploadFile" id="uploadFile">
+						</div>
+						<div class="uploadTitle">
+							<label for="uploadTitle">Titre</label>
+							<input type="text" name="uploadTitle" id="uploadTitle">
+						</div>
+						<div class="uploadCateg">
+							<label for="uploadCateg">Catégorie</label>
+							<select name="uploadCateg" id="uploadCateg">
+
+							</select>
+						</div>
+						<div class="modalButton">
+							<input type="submit" value="Valider" class="inactive">
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

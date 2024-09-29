@@ -2,16 +2,23 @@ import { repWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { showPopup } from "./popUp.js";
 
-const modalAdmin = document.querySelector(".modalAdmin");
+const modalAdminFirst = document.querySelector(".Mfirst");
+const modalAdminSecond = document.querySelector(".Msecond");
 const modalGallery = document.querySelector(".modalGallery");
 
 export function closeModal() {
-    modalAdmin.style.visibility = "hidden";
+    modalAdminFirst.style.visibility = "hidden";
+    modalAdminSecond.style.visibility = "hidden";
 }
 
 export function openModal() {
-    modalAdmin.style.visibility = "visible";
+    modalAdminFirst.style.visibility = "visible";
     firstModal(repWorks);
+}
+
+export function openSecondModal() {
+    modalAdminFirst.style.visibility = "hidden";
+    modalAdminSecond.style.visibility = "visible";
 }
 
 
@@ -35,6 +42,10 @@ export function firstModal(repWorks) {
         projetElement.appendChild(projetImage);
         modalGallery.appendChild(projetElement);
     }
+}
+
+export function secondModal() {
+
 }
 
 export function deletWorks(event) {

@@ -1,7 +1,6 @@
 import { showPopup } from "./popUp.js";
 
 const formulaireLogin = document.querySelector(".formulaireLogin");
-const loginStatus = document.querySelector(".loginStatus");
 
 
 formulaireLogin.addEventListener("submit", async function (event) {
