@@ -2,6 +2,7 @@ import { repWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { filterWorks, genCateg } from "./genCateg.js";
 import { openModal, closeModal, deletWorks } from "./adminModal.js";
+import { showPopup } from "./popUp.js";
 
 genWorks(repWorks);
 genCateg();
@@ -16,7 +17,6 @@ for (let i = 0; i < categButton.length; i++) {
 }
 
 
-
 function checkAdmin() {
 
     if (sessionStorage.getItem("token") != null) {
@@ -26,6 +26,7 @@ function checkAdmin() {
         adminModeVisible.style.visibility = "visible";
         adminModeVisible.style.maxHeight = "100%";
         adminEditVisible.style.visibility = "visible";
+        showPopup("Vous êtes connectés.", false);
     } else {
         // Mettre erreur log
     }

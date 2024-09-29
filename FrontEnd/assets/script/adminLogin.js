@@ -1,5 +1,8 @@
+import { showPopup } from "./popUp.js";
+
 const formulaireLogin = document.querySelector(".formulaireLogin");
 const loginStatus = document.querySelector(".loginStatus");
+
 
 formulaireLogin.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -16,8 +19,7 @@ formulaireLogin.addEventListener("submit", async function (event) {
     const password = passwordInput.value;
 
     if (!email || !password) {
-        loginStatus.setAttribute("style", "color:red;");
-        loginStatus.innerHTML = "Vous devez remplir correctement le formulaire de connection."
+        showPopup("Merci de remplir correctement le formulaire de connection.", true);
         return;
     }
 
@@ -33,20 +35,14 @@ formulaireLogin.addEventListener("submit", async function (event) {
         });
 
         if (response.status !== 200) {
-            loginStatus.setAttribute("style", "color:red;");
-            loginStatus.innerHTML = "E-mail ou mot de passe incorrect."
+            showPopup("E-mail ou mot de passe incorrect.", true);
             return;
         }
 
         const data = await response.json();
-        sessionStorage.setItem("token", data.token); // Stockage du token
-        loginStatus.setAttribute("style", "color:#2ce62f;");
-        loginStatus.innerHTML = "Vous êtes connectés, redirection dans 3 secondes..."
-        setTimeout(() => {
-            window.location.replace("../index.html");
-        }, 2000);
+        sessionStorage.setItem("token", data.token);
+        window.location.replace("../index.html");
     } catch (error) {
-        const errorMessage = error.message || "Erreur réseau ou serveur";
-        console.error("Erreur de connexion : ", error);
+        showPopup("Erreur réseau.", true);
     }
 });
