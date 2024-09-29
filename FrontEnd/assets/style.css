@@ -546,7 +546,6 @@ footer nav ul {
   display: flex;
   align-items: center;
   border-radius: 3px;
-  padding-top: 15px;
 }
 
 .uploadFile label {
@@ -563,6 +562,11 @@ footer nav ul {
 .infoUpload {
   font-size: 10px;
 }
+
+.logoUpload {
+  padding-top: 15px;
+}
+
 .modalForm .active {
   font-family: "Syne";
   font-size: 14px;
@@ -595,6 +599,10 @@ footer nav ul {
   top: 25px;
   font-size: 24px;
   cursor: pointer;
+}
+
+.previewUpload {
+  max-height: 100%;
 }
 /* Popup */
 

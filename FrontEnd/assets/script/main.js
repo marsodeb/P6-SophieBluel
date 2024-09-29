@@ -1,7 +1,7 @@
 import { repWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { filterWorks, genCateg } from "./genCateg.js";
-import { openModal, closeModal, deletWorks, openSecondModal } from "./adminModal.js";
+import { openModal, closeModal, deletWorks, openSecondModal, secondModal, validateForm, uploadWorks } from "./adminModal.js";
 import { showPopup } from "./popUp.js";
 
 
@@ -12,16 +12,20 @@ const categButton = document.querySelectorAll(".categ button");
 const adminModeVisible = document.querySelector(".adminMode");
 const adminEditVisible = document.querySelector(".adminEdit");
 const closeModalBtn = document.querySelectorAll(".modalClose");
+const modalBack = document.querySelector(".modalBack");
 const modalAdminFirst = document.querySelector(".Mfirst");
 const modalAdminSecond = document.querySelector(".Msecond")
 const nextModal = document.querySelector(".nextModal");
+const fileInputContainer = document.querySelector(".uploadFile");
+const uploadForm = document.querySelector(".uploadForm");
+const submitButton = document.getElementById('goUpload');
+
 
 for (let i = 0; i < categButton.length; i++) {
     categButton[i].addEventListener("click", filterWorks);
 }
 
 function checkAdmin() {
-
     if (sessionStorage.getItem("token") != null) {
         const logBtn = document.querySelector(".login");
         logBtn.innerHTML = "<a href='./pages/login.html'>logout</a>";
@@ -65,11 +69,53 @@ modalAdminSecond.addEventListener("click", (event) => {
     }
 })
 
+modalBack.addEventListener("click", () => {
+    modalAdminSecond.style.visibility = "hidden";
+    secondModal();
+    openModal();
+});
+
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('trash') && sessionStorage.getItem("token") != null) {
         deletWorks(event);
     }
 });
+
+fileInputContainer.addEventListener("change", function (event) {
+    if (event.target && event.target.id === "uploadFile") {
+        const logoUpload = document.querySelector(".logoUpload");
+        const labelUpload = document.querySelector(".labelUpload");
+        const spanUpload = document.querySelector(".infoUpload");
+        logoUpload.remove();
+        labelUpload.remove();
+        spanUpload.remove();
+        const [file] = event.target.files;
+        const fileInputImage = document.createElement("img");
+        fileInputImage.src = URL.createObjectURL(file);
+        fileInputImage.classList = "previewUpload";
+        fileInputContainer.appendChild(fileInputImage);
+    }
+});
+
+uploadForm.addEventListener("change", (event) => {
+    if (validateForm()) {
+        submitButton.classList.remove('inactive');
+        submitButton.classList.add('active');
+    } else {
+        submitButton.classList.remove('active');
+        submitButton.classList.add('inactive');
+    }
+});
+
+submitButton.addEventListener("click", (event) => {
+    if (validateForm()) {
+        event.preventDefault();
+        uploadWorks();
+    } else {
+        event.preventDefault();
+    }
+})
+
 
 
 
