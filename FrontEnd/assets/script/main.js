@@ -1,7 +1,8 @@
 import { repWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { filterWorks, genCateg } from "./genCateg.js";
-import { openModal, closeModal } from "./adminModal.js";
+import { openModal, closeModal, deletWorks } from "./adminModal.js";
+
 
 genWorks(repWorks);
 genCateg();
@@ -17,6 +18,7 @@ for (let i = 0; i < categButton.length; i++) {
 
 
 function checkAdmin() {
+
     if (sessionStorage.getItem("token") != null) {
         const logBtn = document.querySelector(".login");
         logBtn.innerHTML = "<a href='./pages/login.html'>logout</a>";
@@ -40,6 +42,11 @@ closeModalBtn.addEventListener("click", () => {
     closeModal()
 })
 
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('trash') && sessionStorage.getItem("token") != null) {
+        deletWorks(event);
+    }
+});
 
 
 

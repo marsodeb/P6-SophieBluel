@@ -1,10 +1,12 @@
 export function genWorks(repWorks) {
 
     const sectionProjets = document.querySelector(".gallery");
+
+    sectionProjets.innerHTML = "";
+
     if (!sectionProjets) {
         return;
     } else {
-
         for (let i = 0; i < repWorks.length; i++) {
             const projet = repWorks[i];
 
