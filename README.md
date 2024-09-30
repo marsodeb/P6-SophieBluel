@@ -9,7 +9,7 @@ Le projet consiste en la création d'un portfolio avec un système de connexion 
 Backend : 
 
 npm install
-npn start
+npm start
 
 Compte de test : 
 
