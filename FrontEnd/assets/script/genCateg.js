@@ -1,5 +1,4 @@
-import { repWorks, repCateg } from "./config.js";
-import { genWorks } from "./genWorks.js"
+import { repCateg } from "./config.js";
 
 export function genCateg() {
 
@@ -29,23 +28,4 @@ export function genCateg() {
     }
 }
 
-export function filterWorks(e) {
-    const sectionProjets = document.querySelector(".gallery")
-    sectionProjets.innerHTML = "";
-
-    const buttons = document.querySelectorAll(".buttonCateg");
-
-    buttons.forEach(button => {
-        button.classList.remove("selectedCateg");
-    });
-
-    e.target.classList.add("selectedCateg");
-
-    if (e.target.id != 0) {
-        genWorks(repWorks.filter(work => work.category.name === e.target.innerText));
-    }
-    else {
-        genWorks(repWorks);
-    }
-}
 

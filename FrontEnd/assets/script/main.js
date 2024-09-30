@@ -1,12 +1,18 @@
-import { repWorks } from "./config.js";
+import { repWorks, fetchWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
-import { filterWorks, genCateg } from "./genCateg.js";
+import { genCateg } from "./genCateg.js";
 import { openModal, closeModal, deletWorks, openSecondModal, secondModal, validateForm, uploadWorks } from "./adminModal.js";
 import { showPopup } from "./popUp.js";
 
 
-genWorks(repWorks);
+fetchWorks().then(data => {
+    if (data) {
+        genWorks(repWorks);
+    }
+});
+
 genCateg();
+
 
 const categButton = document.querySelectorAll(".categ button");
 const adminModeVisible = document.querySelector(".adminMode");
@@ -37,6 +43,29 @@ function checkAdmin() {
     }
 }
 checkAdmin();
+
+function filterWorks(e) {
+    const sectionProjets = document.querySelector(".gallery");
+    sectionProjets.innerHTML = "";
+
+    const buttons = document.querySelectorAll(".buttonCateg");
+
+    buttons.forEach(button => {
+        button.classList.remove("selectedCateg");
+    });
+
+    e.target.classList.add("selectedCateg");
+
+    // On va chercher les travaux récents
+    fetchWorks().then(repWorks => {
+        if (e.target.id != 0) {
+            const filteredWorks = repWorks.filter(work => work.category.name === e.target.innerText);
+            genWorks(filteredWorks);
+        } else {
+            genWorks(repWorks);
+        }
+    });
+}
 
 adminEditVisible.addEventListener("click", () => {
     if (sessionStorage.getItem("token") != null) {

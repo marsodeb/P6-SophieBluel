@@ -1,4 +1,4 @@
-import { repWorks, repCateg } from "./config.js";
+import { repCateg, fetchWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { showPopup } from "./popUp.js";
 
@@ -13,7 +13,11 @@ export function closeModal() {
 
 export function openModal() {
     modalAdminFirst.style.visibility = "visible";
-    firstModal(repWorks);
+    fetchWorks().then(data => {
+        if (data) {
+            firstModal(data); // Mettre à jour la première modal
+        }
+    });
 }
 
 export function openSecondModal() {
@@ -23,12 +27,12 @@ export function openSecondModal() {
 }
 
 
-export function firstModal(repWorks) {
+export function firstModal(works) {
 
     modalGallery.innerHTML = "";
 
-    for (let i = 0; i < repWorks.length; i++) {
-        const projet = repWorks[i];
+    for (let i = 0; i < works.length; i++) {
+        const projet = works[i];
 
         const projetElement = document.createElement("figure");
         const projetImage = document.createElement("img");
@@ -57,6 +61,7 @@ function uploadCateg() {
         const uploadCategOption = document.createElement("option");
 
         uploadCategOption.innerText = categ.name;
+        uploadCategOption.value = repCateg[i].id;
 
         uploadCategories.appendChild(uploadCategOption);
     }
@@ -164,45 +169,43 @@ export function validateForm() {
 }
 
 export function uploadWorks() {
-    const form = document.querySelector(".uploadForm");
 
-    // Récupère les valeurs du formulaire
-    const uploadTitle = document.querySelector("#uploadTitle").value; // Titre
-    const uploadCateg = document.querySelector("#uploadCateg").value; // Catégorie
-    const uploadFile = document.querySelector("#uploadFile").files[0]; // Fichier
+    if (sessionStorage.getItem("token") != null) {
 
-    // Crée un FormData pour envoyer les données
-    const formData = new FormData();
-    formData.append("imageUrl", uploadFile); // Ajoute le fichier
-    formData.append("title", uploadTitle); // Ajoute le titre
-    formData.append("categoryId", uploadCateg); // Ajoute la catégorie
+        const token = sessionStorage.getItem("token");
 
-    // Envoie les données
-    fetch('http://localhost:5678/api/works', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-            // Pas besoin de définir le 'Content-Type' ici
-        },
-        body: formData // Envoie FormData
-    })
-        .then(response => {
-            // Log de la réponse pour inspecter ce qui est retourné
-            console.log('Response:', response);
+        const title = document.querySelector('input[name="title"]').value;
+        const categoryId = document.querySelector('select[name="categoryId"]').value;
+        const image = document.querySelector('input[name="imageUrl"]').files[0];
 
-            // Vérifie si la réponse est au format JSON
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+        const formData = new FormData();
 
-            return response.json(); // Essaie de parser la réponse en JSON
+        formData.append("title", title);
+        formData.append("category", categoryId);
+        formData.append("image", image);
+
+        fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${token}`
+            },
+            body: formData
         })
-        .then(data => {
-            console.log('Upload réussi:', data);
-            showPopup("Upload réussi !", false);
-        })
-        .catch(error => {
-            console.error("Erreur lors de l'upload:", error);
-            showPopup("Erreur lors de l'upload.", true);
-        });
+            .then(response => {
+                if (response.ok) {
+                    showPopup("Travail ajouté avec succès.", false);
+                    return fetch("http://localhost:5678/api/works");
+                } else {
+                    console.log("Erreur : " + response.status);
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                genWorks(data);
+                secondModal();
+            })
+            .catch(error => {
+                showPopup("Erreur réseau", true);
+            });
+    }
 }
