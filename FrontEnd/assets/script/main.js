@@ -1,13 +1,26 @@
-import { repWorks, fetchWorks } from "./config.js";
+import { fetchWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { genCateg } from "./genCateg.js";
 import { openModal, closeModal, deletWorks, openSecondModal, secondModal, validateForm, uploadWorks } from "./adminModal.js";
 import { showPopup } from "./popUp.js";
 
+/////////////////////////////////////////////////////
+// GESTION MODAL ADMIN                ///////////////
+/////////////////////////////////////////////////////
+// INDEX : 1- APPEL DES FONCTIONS DE BASE          //
+//         2- VERIFICATION ADMIN                   //
+//         3- FILTRE PORTFOLIO                     //
+//         4- LISTENER POUR APPELS DES FONCTIONS   //
+//                                                 //
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// 1 - APPEL DES FONCTIONS DE BASE                 //
+/////////////////////////////////////////////////////
 
 fetchWorks().then(data => {
     if (data) {
-        genWorks(repWorks);
+        genWorks(data);
     }
 });
 
@@ -26,10 +39,9 @@ const fileInputContainer = document.querySelector(".uploadFile");
 const uploadForm = document.querySelector(".uploadForm");
 const submitButton = document.getElementById('goUpload');
 
-
-for (let i = 0; i < categButton.length; i++) {
-    categButton[i].addEventListener("click", filterWorks);
-}
+/////////////////////////////////////////////////////
+// 2 - VERIFICATION ADMIN                          //
+/////////////////////////////////////////////////////
 
 function checkAdmin() {
     if (sessionStorage.getItem("token") != null) {
@@ -44,6 +56,10 @@ function checkAdmin() {
 }
 checkAdmin();
 
+/////////////////////////////////////////////////////
+// 3 - FILTRE PORTFOLIO                            //
+/////////////////////////////////////////////////////
+
 function filterWorks(e) {
     const sectionProjets = document.querySelector(".gallery");
     sectionProjets.innerHTML = "";
@@ -57,14 +73,22 @@ function filterWorks(e) {
     e.target.classList.add("selectedCateg");
 
     // On va chercher les travaux récents
-    fetchWorks().then(repWorks => {
+    fetchWorks().then(data => {
         if (e.target.id != 0) {
-            const filteredWorks = repWorks.filter(work => work.category.name === e.target.innerText);
+            const filteredWorks = data.filter(work => work.category.name === e.target.innerText);
             genWorks(filteredWorks);
         } else {
-            genWorks(repWorks);
+            genWorks(data);
         }
     });
+}
+
+/////////////////////////////////////////////////////
+// 4 - LISTENER POUR APPELS DES FONCTIONS          //
+/////////////////////////////////////////////////////
+
+for (let i = 0; i < categButton.length; i++) {
+    categButton[i].addEventListener("click", filterWorks);
 }
 
 adminEditVisible.addEventListener("click", () => {

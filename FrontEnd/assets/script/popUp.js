@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////////
+// POP UP POUR LES INFOS UTILISATEURS           /////
+/////////////////////////////////////////////////////
+
 export function showPopup(message, isError = false) {
     const popup = document.querySelector(".popupInfo");
 

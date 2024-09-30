@@ -1,5 +1,9 @@
 import { showPopup } from "./popUp.js";
 
+/////////////////////////////////////////////////////
+// GESTION DE CONNEXION                         /////
+/////////////////////////////////////////////////////
+
 const formulaireLogin = document.querySelector(".formulaireLogin");
 
 
@@ -12,7 +16,7 @@ formulaireLogin.addEventListener("submit", async function (event) {
     const password = passwordInput.value;
 
     if (!email || !password) {
-        showPopup("Merci de remplir correctement le formulaire de connection.", true);
+        showPopup("Merci de remplir correctement le formulaire de connexion.", true);
         return;
     }
 
@@ -28,7 +32,7 @@ formulaireLogin.addEventListener("submit", async function (event) {
         });
 
         if (response.status !== 200) {
-            showPopup("E-mail ou mot de passe incorrect.", true);
+            showPopup("L'e-mail ou le mot de passe est incorrect.", true);
             return;
         }
 
@@ -36,6 +40,6 @@ formulaireLogin.addEventListener("submit", async function (event) {
         sessionStorage.setItem("token", data.token);
         window.location.replace("../index.html");
     } catch (error) {
-        showPopup("Erreur réseau.", true);
+        showPopup("Erreur liée au réseau.", true);
     }
 });

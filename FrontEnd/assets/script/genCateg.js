@@ -1,5 +1,9 @@
 import { repCateg } from "./config.js";
 
+/////////////////////////////////////////////////////
+// CRÉATION DYNAMIQUE DES BOUTONS CATEGORIES    /////
+/////////////////////////////////////////////////////
+
 export function genCateg() {
 
     const sectionCateg = document.querySelector(".categ")

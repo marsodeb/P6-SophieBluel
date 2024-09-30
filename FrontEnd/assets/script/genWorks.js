@@ -1,4 +1,8 @@
-export function genWorks(repWorks) {
+/////////////////////////////////////////////////////
+// CRÉATION DYNAMIQUE DU PORTFOLIO              /////
+/////////////////////////////////////////////////////
+
+export function genWorks(works) {
 
     const sectionProjets = document.querySelector(".gallery");
 
@@ -7,8 +11,8 @@ export function genWorks(repWorks) {
     if (!sectionProjets) {
         return;
     } else {
-        for (let i = 0; i < repWorks.length; i++) {
-            const projet = repWorks[i];
+        for (let i = 0; i < works.length; i++) {
+            const projet = works[i];
 
             const projetElement = document.createElement("figure");
             const projetImage = document.createElement("img");

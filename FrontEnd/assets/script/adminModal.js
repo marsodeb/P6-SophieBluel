@@ -2,30 +2,54 @@ import { repCateg, fetchWorks } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { showPopup } from "./popUp.js";
 
+/////////////////////////////////////////////////////
+// GESTION MODAL ADMIN                ///////////////
+/////////////////////////////////////////////////////
+// INDEX : 1- OUVERTURE / FERMETURE DES MODALS     //
+//         2- CRÉATION DES ÉLÉMENTS DES MODALS     //
+//         3- GESTION DE LA SUPPRESSION            //
+//         4- GESTION DE L'UPLOAD                  //
+//                                                 //
+/////////////////////////////////////////////////////
+
 const modalAdminFirst = document.querySelector(".Mfirst");
 const modalAdminSecond = document.querySelector(".Msecond");
 const modalGallery = document.querySelector(".modalGallery");
 
+
+/////////////////////////////////////////////////////
+// 1 - OUVERTURE / FERMETURE DES MODALS  ////////////
+/////////////////////////////////////////////////////
+
 export function closeModal() {
+
     modalAdminFirst.style.visibility = "hidden";
     modalAdminSecond.style.visibility = "hidden";
+
 }
 
 export function openModal() {
+
     modalAdminFirst.style.visibility = "visible";
+
     fetchWorks().then(data => {
         if (data) {
-            firstModal(data); // Mettre à jour la première modal
+            firstModal(data);
         }
     });
 }
 
 export function openSecondModal() {
+
     modalAdminFirst.style.visibility = "hidden";
     modalAdminSecond.style.visibility = "visible";
+
     secondModal();
 }
 
+/////////////////////////////////////////////////////
+// 2 - CRÉATION DES ÉLÉMENTS DES MODALS            //
+/////////////////////////////////////////////////////
 
 export function firstModal(works) {
 
@@ -67,7 +91,6 @@ function uploadCateg() {
     }
 }
 
-
 export function secondModal() {
 
     const uploadFileContainer = document.querySelector(".uploadFile");
@@ -99,6 +122,10 @@ export function secondModal() {
     uploadCateg();
 }
 
+/////////////////////////////////////////////////////
+// 3 - GESTION DE LA SUPPRESSION                   //
+/////////////////////////////////////////////////////
+
 export function deletWorks(event) {
     event.preventDefault();
 
@@ -112,10 +139,10 @@ export function deletWorks(event) {
         })
             .then(response => {
                 if (response.ok) {
-                    showPopup("Travail supprimé avec succès.", false);
+                    showPopup("Suppression du travail réussie.", false);
                     return fetch("http://localhost:5678/api/works");
                 } else {
-                    console.log("Erreur : " + response.status);
+                    showPopup("Suppression du travail échouée.", true);
                 }
             })
             .then(response => response.json())
@@ -124,10 +151,14 @@ export function deletWorks(event) {
                 genWorks(data);
             })
             .catch(error => {
-                showPopup("Erreur réseau", true);
+                showPopup("Erreur liée au réseau.", true);
             });
     }
 }
+
+/////////////////////////////////////////////////////
+// 4 - GESTION DE L'UPLOAD                         //
+/////////////////////////////////////////////////////
 
 export function validateForm() {
 
@@ -140,7 +171,7 @@ export function validateForm() {
     const category = uploadCateg.value;
 
     if (!file) {
-        console.log("Aucun fichier sélectionné.");
+        showPopup("Aucun fichier sélectionné.", true);
         return false;
     }
 
@@ -193,10 +224,10 @@ export function uploadWorks() {
         })
             .then(response => {
                 if (response.ok) {
-                    showPopup("Travail ajouté avec succès.", false);
+                    showPopup("Ajout du travail réussie.", false);
                     return fetch("http://localhost:5678/api/works");
                 } else {
-                    console.log("Erreur : " + response.status);
+                    showPopup("Ajout du travail échouée.", true);
                 }
             })
             .then(response => response.json())
@@ -205,7 +236,7 @@ export function uploadWorks() {
                 secondModal();
             })
             .catch(error => {
-                showPopup("Erreur réseau", true);
+                showPopup("Erreur liée au réseau.", true);
             });
     }
 }
