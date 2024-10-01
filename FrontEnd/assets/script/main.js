@@ -1,4 +1,4 @@
-import { fetchWorks } from "./config.js";
+import { fetchWorks, fetchCategories } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { genCateg } from "./genCateg.js";
 import { openModal, closeModal, deletWorks, openSecondModal, secondModal, validateForm, uploadWorks } from "./adminModal.js";
@@ -24,10 +24,19 @@ fetchWorks().then(data => {
     }
 });
 
-genCateg();
+fetchCategories().then(data => {
+    if (data) {
+        genCateg(data);
+
+        const categButton = document.querySelectorAll(".buttonCateg");
+
+        for (let i = 0; i < categButton.length; i++) {
+            categButton[i].addEventListener("click", filterWorks);
+        }
+    }
+});
 
 
-const categButton = document.querySelectorAll(".categ button");
 const adminModeVisible = document.querySelector(".adminMode");
 const adminEditVisible = document.querySelector(".adminEdit");
 const closeModalBtn = document.querySelectorAll(".modalClose");
@@ -38,6 +47,7 @@ const nextModal = document.querySelector(".nextModal");
 const fileInputContainer = document.querySelector(".uploadFile");
 const uploadForm = document.querySelector(".uploadForm");
 const submitButton = document.getElementById('goUpload');
+
 
 /////////////////////////////////////////////////////
 // 2 - VERIFICATION ADMIN                          //
@@ -87,9 +97,6 @@ function filterWorks(e) {
 // 4 - LISTENER POUR APPELS DES FONCTIONS          //
 /////////////////////////////////////////////////////
 
-for (let i = 0; i < categButton.length; i++) {
-    categButton[i].addEventListener("click", filterWorks);
-}
 
 adminEditVisible.addEventListener("click", () => {
     if (sessionStorage.getItem("token") != null) {

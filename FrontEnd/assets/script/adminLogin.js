@@ -6,8 +6,8 @@ import { showPopup } from "./popUp.js";
 
 const formulaireLogin = document.querySelector(".formulaireLogin");
 
-
 formulaireLogin.addEventListener("submit", async function (event) {
+
     event.preventDefault();
 
     const emailInput = event.target.querySelector("[name=email]");
