@@ -7,19 +7,35 @@ const api = "http://localhost:5678/api/";
 const works = api + "works";
 const categories = api + "categories";
 
-const fetchCateg = await fetch(categories);
-const repCateg = await fetchCateg.json();
+export async function fetchCategories() {
+    try {
+        const response = await fetch(categories);
 
-export function fetchWorks() {
-    return fetch(works)
-        .then(response => {
-            if (!response.ok) {
-                showPopup("Erreur lors de la récupération des travaux.", true);
-                return;
-            }
-            return response.json();
-        });
+        if (!response.ok) {
+            showPopup("Erreur lors de la récupération des catégories.", true);
+            return;
+        }
+
+        return await response.json();
+    } catch (error) {
+        showPopup("Erreur liée au réseau.", true);
+    }
+}
+
+export async function fetchWorks() {
+    try {
+        const response = await fetch(works);
+
+        if (!response.ok) {
+            showPopup("Erreur lors de la récupération des travaux.", true);
+            return;
+        }
+
+        return await response.json();
+    } catch (error) {
+        showPopup("Erreur liée au réseau.", true);
+    }
 }
 
 
-export { api, works, categories, repCateg };
+export { api, works, categories };

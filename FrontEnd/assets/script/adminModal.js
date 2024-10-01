@@ -1,4 +1,4 @@
-import { repCateg, fetchWorks } from "./config.js";
+import { fetchWorks, fetchCategories } from "./config.js";
 import { genWorks } from "./genWorks.js";
 import { showPopup } from "./popUp.js";
 
@@ -73,19 +73,19 @@ export function firstModal(works) {
     }
 }
 
-function uploadCateg() {
+function uploadCateg(categories) {
     const uploadCategories = document.getElementById("uploadCateg");
 
     uploadCategories.innerHTML = "";
 
-    for (let i = 0; i < repCateg.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
 
-        const categ = repCateg[i];
+        const categ = categories[i];
 
         const uploadCategOption = document.createElement("option");
 
         uploadCategOption.innerText = categ.name;
-        uploadCategOption.value = repCateg[i].id;
+        uploadCategOption.value = categories[i].id;
 
         uploadCategories.appendChild(uploadCategOption);
     }
@@ -119,40 +119,42 @@ export function secondModal() {
 
     uploadFileContainer.append(imgUpload, labelUpload, spanUpload, inputUpload);
 
-    uploadCateg();
+    fetchCategories().then(data => {
+        if (data) {
+            uploadCateg(data);
+        }
+    });
 }
 
 /////////////////////////////////////////////////////
 // 3 - GESTION DE LA SUPPRESSION                   //
 /////////////////////////////////////////////////////
 
-export function deletWorks(event) {
+export async function deletWorks(event) {
     event.preventDefault();
 
     if (sessionStorage.getItem("token") != null) {
         const token = sessionStorage.getItem("token");
         const workId = event.target.id;
 
-        fetch(`http://localhost:5678/api/works/${workId}`, {
-            method: 'DELETE',
-            headers: { authorization: `Bearer ${token}` },
-        })
-            .then(response => {
-                if (response.ok) {
-                    showPopup("Suppression du travail réussie.", false);
-                    return fetch("http://localhost:5678/api/works");
-                } else {
-                    showPopup("Suppression du travail échouée.", true);
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
+        try {
+            const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+                method: 'DELETE',
+                headers: { authorization: `Bearer ${token}` },
+            });
+
+            if (response.ok) {
+                showPopup("Suppression du travail réussie.", false);
+                const worksResponse = await fetch("http://localhost:5678/api/works");
+                const data = await worksResponse.json();
                 firstModal(data);
                 genWorks(data);
-            })
-            .catch(error => {
-                showPopup("Erreur liée au réseau.", true);
-            });
+            } else {
+                showPopup("Suppression du travail échouée.", true);
+            }
+        } catch (error) {
+            showPopup("Erreur liée au réseau.", true);
+        }
     }
 }
 
@@ -175,7 +177,7 @@ export function validateForm() {
         return false;
     }
 
-    const fileSizeMB = file.size / (1024 * 1024); // Info google pour le calcul des tailles
+    const fileSizeMB = file.size / (1024 * 1024); // Info stackoverflow pour le calcul des tailles
     const fileType = file.type;
 
     if (fileType != "image/png" && fileType != "image/jpeg") {
@@ -199,10 +201,8 @@ export function validateForm() {
     return true;
 }
 
-export function uploadWorks() {
-
+export async function uploadWorks() {
     if (sessionStorage.getItem("token") != null) {
-
         const token = sessionStorage.getItem("token");
 
         const title = document.querySelector('input[name="title"]').value;
@@ -210,33 +210,30 @@ export function uploadWorks() {
         const image = document.querySelector('input[name="imageUrl"]').files[0];
 
         const formData = new FormData();
-
         formData.append("title", title);
         formData.append("category", categoryId);
         formData.append("image", image);
 
-        fetch('http://localhost:5678/api/works', {
-            method: 'POST',
-            headers: {
-                authorization: `Bearer ${token}`
-            },
-            body: formData
-        })
-            .then(response => {
-                if (response.ok) {
-                    showPopup("Ajout du travail réussie.", false);
-                    return fetch("http://localhost:5678/api/works");
-                } else {
-                    showPopup("Ajout du travail échouée.", true);
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
+        try {
+            const response = await fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                headers: {
+                    authorization: `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                showPopup("Ajout du travail réussie.", false);
+                const worksResponse = await fetch("http://localhost:5678/api/works");
+                const data = await worksResponse.json();
                 genWorks(data);
                 secondModal();
-            })
-            .catch(error => {
-                showPopup("Erreur liée au réseau.", true);
-            });
+            } else {
+                showPopup("Ajout du travail échouée.", true);
+            }
+        } catch (error) {
+            showPopup("Erreur liée au réseau.", true);
+        }
     }
 }

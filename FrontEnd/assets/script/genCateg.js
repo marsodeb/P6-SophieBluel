@@ -1,35 +1,30 @@
-import { repCateg } from "./config.js";
-
 /////////////////////////////////////////////////////
 // CRÉATION DYNAMIQUE DES BOUTONS CATEGORIES    /////
 /////////////////////////////////////////////////////
 
-export function genCateg() {
+export function genCateg(categories) {
 
     const sectionCateg = document.querySelector(".categ")
 
-    if (!sectionCateg) {
-        return;
-    } else {
-        const allButton = document.createElement("button");
-        allButton.classList = "buttonCateg selectedCateg";
-        allButton.id = "0";
-        allButton.innerText = "Tous";
-        sectionCateg.appendChild(allButton);
+    const allButton = document.createElement("button");
+    allButton.classList = "buttonCateg selectedCateg";
+    allButton.id = "0";
+    allButton.innerText = "Tous";
+    sectionCateg.appendChild(allButton);
 
-        for (let i = 0; i < repCateg.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
 
-            const categ = repCateg[i];
+        const categ = categories[i];
 
-            const categButton = document.createElement("button");
+        const categButton = document.createElement("button");
 
-            categButton.classList = "buttonCateg";
-            categButton.id = categ.id;
-            categButton.innerText = categ.name;
+        categButton.classList = "buttonCateg";
+        categButton.id = categ.id;
+        categButton.innerText = categ.name;
 
-            sectionCateg.appendChild(categButton);
-        }
+        sectionCateg.appendChild(categButton);
     }
 }
+
 
 

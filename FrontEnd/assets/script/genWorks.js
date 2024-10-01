@@ -8,25 +8,22 @@ export function genWorks(works) {
 
     sectionProjets.innerHTML = "";
 
-    if (!sectionProjets) {
-        return;
-    } else {
-        for (let i = 0; i < works.length; i++) {
-            const projet = works[i];
+    for (let i = 0; i < works.length; i++) {
+        const projet = works[i];
 
-            const projetElement = document.createElement("figure");
-            const projetImage = document.createElement("img");
-            const projetName = document.createElement("figcaption");
+        const projetElement = document.createElement("figure");
+        const projetImage = document.createElement("img");
+        const projetName = document.createElement("figcaption");
 
-            projetImage.src = projet.imageUrl;
-            projetImage.alt = projet.title;
-            projetName.innerText = projet.title;
+        projetImage.src = projet.imageUrl;
+        projetImage.alt = projet.title;
+        projetName.innerText = projet.title;
 
-            projetElement.appendChild(projetImage);
-            projetElement.appendChild(projetName);
-            sectionProjets.appendChild(projetElement);
-        }
+        projetElement.appendChild(projetImage);
+        projetElement.appendChild(projetName);
+        sectionProjets.appendChild(projetElement);
     }
 }
+
 
 
