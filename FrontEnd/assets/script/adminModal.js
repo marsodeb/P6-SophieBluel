@@ -145,10 +145,12 @@ export async function deletWorks(event) {
 
             if (response.ok) {
                 showPopup("Suppression du travail réussie.", false);
-                const worksResponse = await fetch("http://localhost:5678/api/works");
-                const data = await worksResponse.json();
-                firstModal(data);
-                genWorks(data);
+                fetchWorks().then(data => {
+                    if (data) {
+                        firstModal(data);
+                        genWorks(data);
+                    }
+                });
             } else {
                 showPopup("Suppression du travail échouée.", true);
             }
@@ -225,9 +227,11 @@ export async function uploadWorks() {
 
             if (response.ok) {
                 showPopup("Ajout du travail réussie.", false);
-                const worksResponse = await fetch("http://localhost:5678/api/works");
-                const data = await worksResponse.json();
-                genWorks(data);
+                fetchWorks().then(data => {
+                    if (data) {
+                        genWorks(data);
+                    }
+                });
                 secondModal();
             } else {
                 showPopup("Ajout du travail échouée.", true);
